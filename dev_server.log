@@ -66,3 +66,31 @@ TEST SEED: Database seeded successfully.
 [DATABASE] Connection established.
 [DATABASE] Table 'users' verified/created.
  POST /api/auth/signup 400 in 293ms (compile: 16ms, render: 277ms)
+ GET /auth/signup?plan=associate 200 in 1158ms (compile: 248ms, render: 910ms)
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+REAL DB SIGNUP OTP for testuser_1767518134052@example.com: 209944
+ POST /api/auth/signup 200 in 1201ms (compile: 105ms, render: 1096ms)
+○ Compiling /auth/verify ...
+ GET /auth/verify?email=testuser_1767518134052%40example.com 200 in 8.5s (compile: 8.5s, render: 59ms)
+TEST SEED: Initializing and seeding database...
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+ GET /auth/signup?plan=associate 200 in 1835ms (compile: 19ms, render: 1816ms)
+[DATABASE] Table 'users' verified/created.
+[DATABASE] Seeding initial data...
+[DATABASE] User 'existing@example.com' already exists.
+TEST SEED: Database seeded successfully.
+ POST /api/test/seed 200 in 2.1s (compile: 78ms, render: 2.0s)
+ GET /auth/signup 200 in 268ms (compile: 18ms, render: 250ms)
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+[DATABASE] Initializing schema...
+REAL DB SIGNUP OTP for testuser_1767518183186@example.com: 684764
+ POST /api/auth/signup 200 in 583ms (compile: 56ms, render: 527ms)
+ GET /auth/verify?email=testuser_1767518183186%40example.com 200 in 40ms (compile: 6ms, render: 34ms)
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+ POST /api/auth/signup 400 in 348ms (compile: 24ms, render: 324ms)
