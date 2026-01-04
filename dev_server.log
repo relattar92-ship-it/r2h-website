@@ -17,3 +17,52 @@ https://nextjs.org/telemetry
 ○ Compiling / ...
  GET / 200 in 6.6s (compile: 6.1s, render: 527ms)
  GET /pricing 200 in 1136ms (compile: 921ms, render: 215ms)
+ GET /auth/signup 200 in 2.3s (compile: 2.0s, render: 280ms)
+ GET /auth/signup 200 in 133ms (compile: 16ms, render: 117ms)
+ GET /auth/signup 200 in 72ms (compile: 6ms, render: 66ms)
+ GET /auth/signup 200 in 73ms (compile: 5ms, render: 68ms)
+ GET /auth/signup 200 in 80ms (compile: 5ms, render: 75ms)
+CRITICAL: DATABASE_URL is not defined in environment variables!
+[DATABASE] Initializing schema...
+[DATABASE] Initialization FAILURE:
+[SECURITY AUDIT] Signup Crash: AggregateError:
+    at async initDb (lib/db.ts:32:18)
+    at async POST (app/api/auth/signup/route.ts:21:9)
+  30 |     let client;
+  31 |     try {
+> 32 |         client = await pool.connect();
+     |                  ^
+  33 |         console.log("[DATABASE] Connection established.");
+  34 |         await client.query(`
+  35 |             CREATE TABLE IF NOT EXISTS users ( {
+  code: 'ECONNREFUSED'
+}
+ POST /api/auth/signup 500 in 2.1s (compile: 1534ms, render: 554ms)
+  Reload env: .env.local
+  Reload env: .env.local
+TEST SEED: Initializing and seeding database...
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+[DATABASE] Seeding initial data...
+[DATABASE] Seeded user 'existing@example.com'.
+TEST SEED: Database seeded successfully.
+ POST /api/test/seed 200 in 1226ms (compile: 224ms, render: 1002ms)
+ GET /auth/signup 200 in 398ms (compile: 106ms, render: 292ms)
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+ POST /api/auth/signup 400 in 395ms (compile: 99ms, render: 295ms)
+TEST SEED: Initializing and seeding database...
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+[DATABASE] Seeding initial data...
+[DATABASE] User 'existing@example.com' already exists.
+TEST SEED: Database seeded successfully.
+ POST /api/test/seed 200 in 333ms (compile: 4ms, render: 329ms)
+ GET /auth/signup 200 in 84ms (compile: 12ms, render: 72ms)
+[DATABASE] Initializing schema...
+[DATABASE] Connection established.
+[DATABASE] Table 'users' verified/created.
+ POST /api/auth/signup 400 in 293ms (compile: 16ms, render: 277ms)

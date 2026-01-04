@@ -51,6 +51,34 @@ export async function initDb() {
     }
 }
 
+/**
+ * Seeds the database with initial data for testing/development.
+ */
+export async function seedDb() {
+    console.log("[DATABASE] Seeding initial data...");
+    let client;
+    try {
+        client = await pool.connect();
+        // Check if the user already exists
+        const existingUser = await client.query("SELECT * FROM users WHERE email = $1", ["existing@example.com"]);
+        if (existingUser.rows.length === 0) {
+            const passwordHash = await bcrypt.hash("password123", 10);
+            await client.query(
+                "INSERT INTO users (email, name, mobile, password_hash, is_verified) VALUES ($1, $2, $3, $4, $5)",
+                ["existing@example.com", "Existing User", "+11234567890", passwordHash, true]
+            );
+            console.log("[DATABASE] Seeded user 'existing@example.com'.");
+        } else {
+            console.log("[DATABASE] User 'existing@example.com' already exists.");
+        }
+    } catch (err: any) {
+        console.error("[DATABASE] Seeding FAILURE:", err.message);
+        // Don't re-throw here, as it might crash the app start
+    } finally {
+        if (client) client.release();
+    }
+}
+
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {
     const res = await pool.query("SELECT * FROM users WHERE email = $1", [email.toLowerCase().trim()]);
