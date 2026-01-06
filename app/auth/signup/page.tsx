@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Mail, Phone, Lock, ArrowRight, ArrowLeft, Eye, EyeOff, Check, CreditCard, Zap, Shield, Crown } from "lucide-react";
+import { User, Mail, Phone, Lock, ArrowRight, ArrowLeft, Eye, EyeOff, Check, CreditCard, Zap, Shield, Crown, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Plan = "associate" | "senior" | "authority";
@@ -56,6 +56,7 @@ function SignupForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [selectedCountryCode, setSelectedCountryCode] = useState("+971");
+    const [error, setError] = useState("");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -85,6 +86,7 @@ function SignupForm() {
 
     const handleFinalStep = async () => {
         setIsLoading(true);
+        setError("");
 
         // Send real signup data to API
         try {
@@ -106,11 +108,11 @@ function SignupForm() {
                 // Redirect to OTP verification
                 router.push("/auth/verify?email=" + encodeURIComponent(formData.email));
             } else {
-                console.error("Failed to signup:", data.error);
+                setError(data.error || "An unknown error occurred.");
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error("Error signing up:", error);
+            setError("Failed to connect to the server. Please try again.");
             setIsLoading(false);
         }
     };
@@ -246,6 +248,12 @@ function SignupForm() {
                 {/* Step 2: Summary / Payment */}
                 {step === 2 && (
                     <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+                        {error && (
+                            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm flex items-center gap-3">
+                                <ShieldAlert className="w-5 h-5 shrink-0" />
+                                <span className="font-semibold">{error}</span>
+                            </div>
+                        )}
                         {/* Order Summary */}
                         <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
                             <h4 className="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2">Plan Summary</h4>

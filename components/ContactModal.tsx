@@ -24,21 +24,31 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call to Resend
-        // In production, replace with actual API call:
-        // await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
-        console.log("Sending to Resend:", formData);
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        await new Promise(resolve => setTimeout(resolve, 1500));
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
 
-        setIsSubmitting(false);
-        setIsSubmitted(true);
+            setIsSubmitting(false);
+            setIsSubmitted(true);
 
-        setTimeout(() => {
-            onClose();
-            setIsSubmitted(false);
-            setFormData({ name: "", company: "", email: "", projectType: "DEWA" });
-        }, 2000);
+            setTimeout(() => {
+                onClose();
+                setIsSubmitted(false);
+                setFormData({ name: "", company: "", email: "", projectType: "DEWA" });
+            }, 2000);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            setIsSubmitting(false);
+        }
     };
 
     if (!isOpen) return null;

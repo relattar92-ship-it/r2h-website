@@ -54,9 +54,11 @@ export default function PricingPage() {
                             </Button>
                         </Link>
 
-                        <Button variant="secondary" className="w-full flex items-center justify-center gap-2 text-xs opacity-50 cursor-not-allowed">
-                            <Download className="w-3 h-3" /> Download Windows Program (After Signup)
-                        </Button>
+                        <Link href="/windows-app.zip" className="w-full">
+                            <Button variant="secondary" className="w-full flex items-center justify-center gap-2 text-xs">
+                                <Download className="w-3 h-3" /> Download Windows Program
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 

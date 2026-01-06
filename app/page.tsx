@@ -42,7 +42,7 @@ export default function LandingPage() {
                     </Link>
 
 
-                    <Link href="/pricing">
+                    <Link href="/windows-app.zip">
                         <Button variant="secondary" size="lg" className="rounded-full px-8 py-6 text-lg flex items-center gap-2">
                             <Download className="w-5 h-5" /> Download Windows App
                         </Button>
